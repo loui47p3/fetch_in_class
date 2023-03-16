@@ -1,15 +1,40 @@
 ---
+import { Debug } from "astro/components";
+const url = "https://pbhqptcgtunejfwsunzi.supabase.co/rest/v1/medlemmer";
+const options = {
+  headers: {
+    apikey: "",
+  },
+};
+const response = await fetch(url, options);
+const data = await response.json();
 ---
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+  <details>
+    <summary>Debug</summary>
+    <Debug {data} />
+  </details>
+
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Astro</title>
+  </head>
+  <body>
+    <h1>Astro</h1>
+
+    {
+      data.map((person) => (
+        <article>
+          <h1>{person.navn}</h1>
+          <p>{person.mail}</p>
+        </article>
+      ))
+    }
+  </body>
+
+
 </html>
